@@ -1,8 +1,8 @@
 <ion-header>
     <ion-navbar color="primary" enable-menu-with-back-views="false">
-        <button ion-button menuToggle>
+        <!-- <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
-        </button>
+        </button> -->
         <ion-title>{{person.first_name}} {{person.last_name}}</ion-title>
         <ion-buttons end>
 
@@ -15,15 +15,16 @@
     <ion-card>
 
 
-
+            <ion-item >     
         <img src="{{genimg(person.id)}}" onError="this.src='http://gazettereview.com/wp-content/uploads/2016/03/facebook-avatar.jpg'">
+            </ion-item>
         <ion-item>
             <h2>{{person.first_name}} {{person.last_name}}</h2>
             <p>Democratic Party (FIX THIS)</p>
         </ion-item>
 
 
-        <ion-row>
+        <ion-row >
             <ion-col>
                 <button ion-button clear large>
                     <ion-icon name="logo-facebook"></ion-icon>
@@ -41,17 +42,15 @@
         </ion-row>
 
     </ion-card>
-
+<h1 text-center>Bills {{person.first_name}} sponsored</h1>
     <ion-list>
-        <ion-list-header>
-            Bills {{person.first_name}} sponsored
-        </ion-list-header>
+
         <div *ngFor="let bill of bills">
-        <ion-item-sliding>
+        <ion-item-sliding (click)="pushMore(bill)">
 
             <ion-item>
                 <h2 text-wrap>{{bill.short_title}}</h2>
-                <p text-center>Up: {{bill.vote_up}} Down: {{bill.vote_down}}</p>
+                <p>Up: {{bill.vote_up}} Down: {{bill.vote_down}}</p>
             </ion-item>
             <ion-item-options side="right">
                 <button (click)="upvote(bill)" ion-button color="primary">
@@ -66,10 +65,10 @@
                         <ion-icon name="ios-chatboxes"></ion-icon>
                         Comment
                     </button>
-                    <button (click)="pushMore(bill)" ion-button color="primary">
+                    <!-- <button (click)="pushMore(bill)" ion-button color="primary">
                             <ion-icon name="ios-more"></ion-icon>
                             More
-                        </button>
+                        </button> -->
             </ion-item-options>
         </ion-item-sliding>
     </div>

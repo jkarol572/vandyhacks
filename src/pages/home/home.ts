@@ -33,7 +33,7 @@ export class Home {
         var repsref = this.af.database.list('/reps/', {
             query: {
                  orderByChild: 'first_name',
-                 limitToFirst: 10
+                //  limitToFirst: 10
             }});
 
 
@@ -111,7 +111,9 @@ export class Home {
     }
 
     genimg(link){
-        return "http://bioguide.congress.gov/bioguide/photo/" + link.charAt(0) + "/"+link+".jpg"
+        // return "http://bioguide.congress.gov/bioguide/photo/" + link.charAt(0) + "/"+link+".jpg"
+        return "img/congress/"+link+".jpg"
+        
     }
 
     openModal(person){

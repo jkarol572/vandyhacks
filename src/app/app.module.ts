@@ -11,13 +11,14 @@ import { AuthService } from '../providers/auth-service';
 import { PersonView } from '../pages/personview/personview';
 import { More } from '../pages/more/more';
 import { Comment } from '../pages/comment/comment';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyDmLufSLcwXbmxeMY4YxyGVFeEr-mZpqxk",
-    authDomain: "project-676454807009.firebaseapp.com",
-    databaseURL: "https://vandyhacks-c518a.firebaseio.com/",
-    storageBucket: "project-676454807009.appspot.com",
-    messagingSenderId: "676454807009"
+    apiKey: "AIzaSyDAV3P8Gwava4iIdlsJQjar41TnXNxoYtM",
+    authDomain: "project-953089341135.firebaseapp.com",
+    databaseURL: "https://congernize.firebaseio.com/",
+    storageBucket: "project-953089341135.appspot.com",
+    messagingSenderId: "953089341135"
 };
 
 @NgModule({
@@ -32,7 +33,8 @@ export const firebaseConfig = {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

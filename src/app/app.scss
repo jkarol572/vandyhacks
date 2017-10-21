@@ -20,6 +20,15 @@
 }
 
 .crop img {
-    width: auto;
-    height: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2px;
+
    }
+
+   .dem {background-color: #8da7be}
+   .yel {background-color: #e2edfe}
+   .rep {background-color: #BFACCA}
+   .ice {background-color:#BFDBF4}
+   .darkk {background-color: #191936}
