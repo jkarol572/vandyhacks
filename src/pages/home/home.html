@@ -9,7 +9,7 @@
     </ion-buttons>
   </ion-navbar>
   <ion-searchbar
-  [(ngModel)]="myInput" class="primary" (change)="findPerson()">
+  [(ngModel)]="myInput" class="primary" (ionInput)="findPerson($event)">
 </ion-searchbar>
 </ion-header>
 
@@ -46,27 +46,31 @@
     <ng-container *ngFor="let person of reps; let i=index">
       <ion-row *ngIf="i%2==0">
         <ion-col col-6><ion-card>
-            <img src="{{genimg(person.id)}}"/>
+            <img class="crop" src="{{genimg(person.id)}}" onError="this.src='http://gazettereview.com/wp-content/uploads/2016/03/facebook-avatar.jpg'"/>
             <ion-card-content>
               <ion-card-title>
                 {{person.first_name}} {{person.last_name}} 
                 </ion-card-title>
-              <p>
+              <!-- <p>
                   {{person.party}}                   
-              </p>
+              </p> -->
+              <button (click)="openModal(person)" ion-button full>View Profile</button>
+              
             </ion-card-content>
           </ion-card></ion-col>
 
 
           <ion-col col-6 *ngIf="reps[i+1]"><ion-card>
-              <img src="{{genimg(reps[i+1].id)}}"/>
+              <img class="crop" src="{{genimg(reps[i+1].id)}}" onError="this.src='http://gazettereview.com/wp-content/uploads/2016/03/facebook-avatar.jpg'"/>
               <ion-card-content>
                 <ion-card-title>
                   {{reps[i+1].first_name}} {{reps[i+1].last_name}}
                   </ion-card-title>
-                <p>
+                <!-- <p>
                     {{reps[i+1].party}}                   
-                </p>
+                </p> -->
+                <button (click)="openModal(reps[i+1])" ion-button full>View Profile</button>
+                
               </ion-card-content>
             </ion-card></ion-col>
 

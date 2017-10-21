@@ -6,6 +6,7 @@ import { Login } from '../pages/login/login';
 import { Home } from '../pages/home/home';
 import { AngularFire } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
+import { PersonView } from '../pages/personview/personview';
 
 
 @Component({
