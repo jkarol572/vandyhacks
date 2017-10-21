@@ -7,6 +7,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import * as firebase from 'firebase';
 import { AuthService } from '../../providers/auth-service';
 import { Login } from '../login/login';
+import { states } from '../../app/states';
 
 
 @Component({
@@ -20,11 +21,15 @@ export class Signup {
     confirmPassword: string;
     first: string;
     last: string;
+    username: string;
+    state: string;
+    states: any
     constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, private af: AngularFire, private _auth: AuthService, public toastCtrl: ToastController) {
 
     }
 
     ngOnInit() {
+        this.states=states;
 
     }
 
@@ -40,7 +45,8 @@ export class Signup {
             let user: any = firebase.auth().currentUser;
             let emailName = this._auth.getEmailName();//this.email.split('@')[0];
             let univ = this._auth.getUniversity();//universities[domain];
-            let newUser = new User(this.email, this.first, this.last);
+            console.log(this.state + "yeeeee")
+            let newUser = new User(this.email, this.first, this.last, this.username, this.state);
             this.af.database.object('/users/' + emailName).set(newUser);
 
             this.toastCtrl.create({
@@ -60,4 +66,10 @@ export class Signup {
         });
         loading.dismiss();
     }
+
+    goToLogin() {
+        //Sends user back to the login screen
+        this.navCtrl.pop();
+    }
+
 }

@@ -10,11 +10,11 @@ import { AngularFireModule } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyDIazbnM6RZPOzp2Lv_-RFRTiVPtDsEU-M",
-    authDomain: "hackemory-f6ad0.firebaseapp.com",
-    databaseURL: "https://hackemory-f6ad0.firebaseio.com/",
-    storageBucket: "hackemory-f6ad0.appspot.com",
-    messagingSenderId: "910671768794"
+    apiKey: "AIzaSyDmLufSLcwXbmxeMY4YxyGVFeEr-mZpqxk",
+    authDomain: "project-676454807009.firebaseapp.com",
+    databaseURL: "https://vandyhacks-c518a.firebaseio.com/",
+    storageBucket: "project-676454807009.appspot.com",
+    messagingSenderId: "676454807009"
 };
 
 @NgModule({

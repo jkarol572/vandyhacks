@@ -5,12 +5,16 @@ export class User {
     first: string;
     email: string;
     last: string;
+    username: string;
+    state: string;
     public af: AngularFire;
 
     constructor(first: string, email: string,
-        last: string) {
+        last: string, username: string, state: string) {
         this.first = first;
         this.last = last;
         this.email = email;
+        this.username = username;
+        this.state = state;
     }
 }
