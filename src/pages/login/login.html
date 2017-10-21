@@ -1,0 +1,17 @@
+<ion-content drag-content="false"  padding>
+  <div center text-center>
+   <ion-item no-padding >
+            <ion-label floating><strong>Email: </strong></ion-label>
+            <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
+        </ion-item>
+        <ion-item no-padding >
+            <ion-label floating ><strong>Password: </strong></ion-label>
+            <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
+        </ion-item>
+        <br>
+        <br>
+        <button ion-button type="submit" block (click)="loginForm()">Log in</button>
+        <button ion-button type="submit" block (click)="goToRegister()">Sign Up</button>
+        
+</div>
+</ion-content>
