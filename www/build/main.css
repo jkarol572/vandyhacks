@@ -26809,3 +26809,7 @@ ion-navbar.toolbar {
     padding-top: calc(16px + 20px);
   }
 }
+
+.primary {
+  background-color: #488aff;
+}

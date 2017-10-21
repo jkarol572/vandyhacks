@@ -20,7 +20,10 @@ export class Login {
 
 
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, private af: AngularFire, private _auth: AuthService, public toastCtrl: ToastController) {
-
+    if(_auth.authenticated){
+      this.navCtrl.setRoot(Home);
+      
+    }
   }
 
   ionViewDidEnter() {
