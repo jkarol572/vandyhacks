@@ -9,7 +9,8 @@
     </ion-buttons>
   </ion-navbar>
   <ion-searchbar
-  [(ngModel)]="myInput" class="primary" (ionInput)="findPerson($event)">
+  [(ngModel)]="myInput" class="primary" (ionInput)="findPerson($event)" (ionCancel)="onCancel($event)">
+  >
 </ion-searchbar>
 </ion-header>
 

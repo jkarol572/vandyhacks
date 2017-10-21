@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { MenuController, NavController } from 'ionic-angular';
+import { MenuController, NavController, LoadingController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
 import { Login } from '../login/login';
 import { PersonView } from '../personview/personview';
@@ -17,25 +17,36 @@ import * as firebase from 'firebase';
 export class Home {
     reps: any;
     myInput: string;
-    constructor(private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire) {
+    constructor(public loadingCtrl: LoadingController, private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire) {
        
     }
     ngOnInit(){
         this.myInput="";
         //Grab all of the reps
+        let loading = this.loadingCtrl.create({
+            spinner: 'ios',
+            content: 'Loading people'
+          });
+          
+        
+          loading.present();
         var repsref = this.af.database.list('/reps/', {
             query: {
                  orderByChild: 'first_name',
+                 limitToFirst: 10
             }});
 
 
         var groupSubscription = repsref.subscribe((data) => {
-            console.log(data);
             this.reps=data;
+            loading.dismiss()
+            
         });
+        
     }
 
     findPerson(){
+   
 
         if(this.myInput.indexOf(" ")==-1){
         var repsref = this.af.database.list('/reps/', {
@@ -49,7 +60,6 @@ export class Home {
 
 
         var groupSubscription = repsref.subscribe((data) => {
-            console.log(data);
             this.reps=data;
         });
 
@@ -64,8 +74,8 @@ export class Home {
 
 
         var groupSubscription = repsref.subscribe((data) => {
-            console.log(data);
             this.reps=this.reps.concat(data);
+            
         });
     }else{
         var repsref = this.af.database.list('/reps/', {
@@ -79,7 +89,6 @@ export class Home {
 
 
         var groupSubscription = repsref.subscribe((data) => {
-            console.log(data);
             this.reps=data;
         });
 
@@ -94,8 +103,8 @@ export class Home {
 
 
         var groupSubscription = repsref.subscribe((data) => {
-            console.log(data);
             this.reps=this.reps.concat(data);
+            
         });
 
     }
@@ -106,8 +115,10 @@ export class Home {
     }
 
     openModal(person){
-        console.log(person);
         this.navCtrl.push(PersonView, {person: person});
+    }
+    onCancel(){
+
     }
 
 }

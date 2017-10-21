@@ -1,15 +1,77 @@
-<ion-header >
-        <ion-navbar color="primary" enable-menu-with-back-views="false">
-          <button ion-button menuToggle>
+<ion-header>
+    <ion-navbar color="primary" enable-menu-with-back-views="false">
+        <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
-          </button>
-          <ion-title>Person</ion-title>
-          <ion-buttons end>
-       
-          </ion-buttons>
-        </ion-navbar>
- 
-      </ion-header>
+        </button>
+        <ion-title>{{person.first_name}} {{person.last_name}}</ion-title>
+        <ion-buttons end>
 
-<ion-content padding >
-</ion-content>        
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <ion-card>
+
+
+
+        <img src="{{genimg(person.id)}}" onError="this.src='http://gazettereview.com/wp-content/uploads/2016/03/facebook-avatar.jpg'">
+        <ion-item>
+            <h2>{{person.first_name}} {{person.last_name}}</h2>
+            <p>Democratic Party (FIX THIS)</p>
+        </ion-item>
+
+
+        <ion-row>
+            <ion-col>
+                <button ion-button clear large>
+                    <ion-icon name="logo-facebook"></ion-icon>
+                    <div>&nbsp; Facebook</div>
+
+                </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button clear large>
+                    <ion-icon name="logo-twitter"></ion-icon>
+                    <div>&nbsp;Twitter</div>
+                </button>
+            </ion-col>
+
+        </ion-row>
+
+    </ion-card>
+
+    <ion-list>
+        <ion-list-header>
+            Bills {{person.first_name}} sponsored
+        </ion-list-header>
+        <div *ngFor="let bill of bills">
+        <ion-item-sliding>
+
+            <ion-item>
+                <h2 text-wrap>{{bill.short_title}}</h2>
+                <p text-center>Up: {{bill.vote_up}} Down: {{bill.vote_down}}</p>
+            </ion-item>
+            <ion-item-options side="right">
+                <button (click)="upvote(bill)" ion-button color="primary">
+                    <ion-icon name="ios-thumbs-up"></ion-icon>
+                    &nbsp;Like&nbsp;
+                </button>
+                <button (click)="downvote(bill)" ion-button color="secondary">
+                    <ion-icon name="ios-thumbs-down"></ion-icon>
+                    Dislike
+                </button>
+                <button (click)="pushComment(bill)" ion-button color="danger">
+                        <ion-icon name="ios-chatboxes"></ion-icon>
+                        Comment
+                    </button>
+                    <button (click)="pushMore(bill)" ion-button color="primary">
+                            <ion-icon name="ios-more"></ion-icon>
+                            More
+                        </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </div>
+    </ion-list>
+</ion-content>

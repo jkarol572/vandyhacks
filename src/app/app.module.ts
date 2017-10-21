@@ -9,6 +9,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
 import { PersonView } from '../pages/personview/personview';
+import { More } from '../pages/more/more';
+import { Comment } from '../pages/comment/comment';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDmLufSLcwXbmxeMY4YxyGVFeEr-mZpqxk",
@@ -24,7 +26,9 @@ export const firebaseConfig = {
     Signup,
     Home,
     Login,
-    PersonView
+    PersonView,
+    More,
+    Comment
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -36,7 +40,9 @@ export const firebaseConfig = {
     Signup,
     Home,
     Login,
-    PersonView
+    PersonView,
+    More,
+    Comment
   ],
   providers: [
     StatusBar,

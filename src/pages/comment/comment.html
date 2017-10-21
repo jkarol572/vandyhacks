@@ -1,0 +1,37 @@
+<ion-header>
+        <ion-navbar color="primary" enable-menu-with-back-views="false">
+            <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+            <ion-title>More</ion-title>
+            <ion-buttons end>
+    
+            </ion-buttons>
+        </ion-navbar>
+    
+    </ion-header>
+    <ion-content>
+        <br>
+
+    
+                  <!-- <div *ngFor="let comment of listOfComments">
+                    {{comment.comment}}
+                  </div> -->
+
+
+
+                  <ion-list>
+                        <ion-item *ngFor="let comment of listOfComments">
+                          <h2>{{username}} on {{comment.date}} at {{comment.time}}</h2>
+                          <p text-wrap>{{comment.comment}}</p>
+                        </ion-item>
+                      </ion-list>
+
+                      <ion-item>
+                            <ion-label color="primary" stacked>Comment</ion-label>
+                            <ion-input [(ngModel)]="text"type="email" placeholder="Your opinion..."></ion-input>
+                            <ion-icon item-right name="ios-send" (click)="postComment()"></ion-icon>                            
+                        </ion-item>
+
+
+    </ion-content>
