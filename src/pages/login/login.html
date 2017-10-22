@@ -1,5 +1,9 @@
 <ion-content drag-content="false"  padding>
-  <div center text-center>
+    <div text-center>
+    <img style="height: 150px; width: auto;"src="http://ian.umces.edu/imagelibrary/albums/userpics/12865/normal_ian-symbol-dc-capitol-building.png">
+    </div>
+    <h1 style="color: #488aff; font-size: 50px;"text-center>Congernize</h1>
+    <div center text-center>
    <ion-item no-padding >
             <ion-label floating><strong>Email: </strong></ion-label>
             <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
@@ -11,7 +15,8 @@
         <br>
         <br>
         <button ion-button type="submit" block (click)="loginForm()">Log in</button>
-        <button ion-button type="submit" block (click)="goToRegister()">Sign Up</button>
+        <br>
+        <div text-center><a (click)="goToRegister()">Or create an account</a></div>
         
 </div>
 </ion-content>

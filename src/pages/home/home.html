@@ -1,8 +1,8 @@
 <ion-header >
   <ion-navbar color="primary" enable-menu-with-back-views="false">
-    <!-- <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button> -->
+    <button (click)="presentConfirm()"item-right ion-button>
+      <ion-icon item-right name="md-log-out"></ion-icon>
+    </button>
     <ion-title>Home</ion-title>
     <ion-buttons end>
  
@@ -16,36 +16,6 @@
 
 
 <ion-content >
-
-
-    <!-- <ion-grid>
-    <ion-row>
-        <ion-col col-6><ion-card>
-            <img src="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853"/>
-            <ion-card-content>
-              <ion-card-title>
-                Donald trump
-                </ion-card-title>
-              <p>
-                Republican Party
-              </p>
-            </ion-card-content>
-          </ion-card></ion-col>
-        <ion-col col-6><ion-card>
-            <img src="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853"/>
-            <ion-card-content>
-              <ion-card-title>
-                Nine Inch Nails Live
-                </ion-card-title>
-              <p>
-                  Republican Party                    
-              </p>
-            </ion-card-content>
-          </ion-card></ion-col>
-        
-      </ion-row>
-    </ion-grid> -->
-
     <ng-container *ngFor="let person of reps; let i=index">
       <ion-row *ngIf="i%2==0">
         <ion-col col-6><ion-card>
@@ -56,15 +26,10 @@
               <ion-card-title  text-center style="text-overflow: ellipsis; white-space: nowrap; font-size: 10px; overflow: hidden;">
                 {{person.first_name}} {{person.last_name}} 
                 </ion-card-title>
-              <!-- <p>
-                  {{person.party}}                   
-              </p> -->
               <button class="primary" (click)="openModal(person)" ion-button full>View Profile</button>
               
             </ion-card-content>
           </ion-card></ion-col>
-
-
           <ion-col col-6 *ngIf="reps[i+1]"><ion-card>
               <ion-item  style="padding-top: 10px;">
               <img class="crop" src="{{genimg(reps[i+1].id)}}" onError="this.src='http://gazettereview.com/wp-content/uploads/2016/03/facebook-avatar.jpg'"/>
@@ -73,68 +38,11 @@
                 <ion-card-title  text-center style="text-overflow: ellipsis; white-space: nowrap; font-size: 10px; overflow: hidden;">
                   {{reps[i+1].first_name}} {{reps[i+1].last_name}}
                   </ion-card-title>
-                <!-- <p>
-                    {{reps[i+1].party}}                   
-                </p> -->
-                <button class="primary" (click)="openModal(reps[i+1])" ion-button full>View Profile</button>
-                
+                <button class="primary" (click)="openModal(reps[i+1])" ion-button full>View Profile</button>           
               </ion-card-content>
             </ion-card></ion-col>
 
         </ion-row>
     </ng-container>        
-
-    <!-- <ion-grid>
-        <ion-row>
-          <ion-col col-6><ion-card>
-              <img src="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853"/>
-              <ion-card-content>
-                <ion-card-title>
-                  Donald trump
-                  </ion-card-title>
-                <p>
-                  Republican Party
-                </p>
-              </ion-card-content>
-            </ion-card></ion-col>
-          <ion-col col-6><ion-card>
-              <img src="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853"/>
-              <ion-card-content>
-                <ion-card-title>
-                  Nine Inch Nails Live
-                  </ion-card-title>
-                <p>
-                    Republican Party                    
-                </p>
-              </ion-card-content>
-            </ion-card></ion-col>
-          
-        </ion-row>
-        <ion-row>
-            <ion-col col-6><ion-card>
-                <img src="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853"/>
-                <ion-card-content>
-                  <ion-card-title>
-                    Donald trump
-                    </ion-card-title>
-                  <p>
-                    Republican Party
-                  </p>
-                </ion-card-content>
-              </ion-card></ion-col>
-            <ion-col col-6><ion-card>
-                <img src="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853"/>
-                <ion-card-content>
-                  <ion-card-title>
-                    Nine Inch Nails Live
-                    </ion-card-title>
-                  <p>
-                      Republican Party                      
-                  </p>
-                </ion-card-content>
-              </ion-card></ion-col>
-            
-          </ion-row>
-      </ion-grid> -->
     </ion-content>
 
