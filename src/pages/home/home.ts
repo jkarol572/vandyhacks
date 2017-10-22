@@ -43,8 +43,7 @@ export class Home {
           loading.present();
         var repsref = this.af.database.list('/reps/', {
             query: {
-                 orderByChild: 'first_name',
-                //  limitToFirst: 10
+                 orderByChild: 'first_name'
             }});
 
 

@@ -121,12 +121,39 @@ export class PersonView {
         alert.present();
       }
 
+      unknown() {
+        let alert = this.alertCtrl.create({
+          title: 'Error',
+          message: 'An unkown error has occured',
+          buttons: [
+            {
+              text: 'Ok',
+              role: 'cancel',
+              handler: () => {
+ 
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+
     pushMore(bill){
-        this.navCtrl.push(More, {bill: bill, link: '/reps/'+this.person.$key+"/bills"});
+        this.navCtrl.push(More, {bill: bill, link: '/reps/'+this.person.$key+"/bills/"}).then(res=>{
+            console.log('success',res)
+          })
+      .catch((err:any)=>{
+        this.unknown();
+      })
         
     }
     pushComment(bill){
-        this.navCtrl.push(Comment, {bill: bill, link: '/reps/'+this.person.$key+"/bills"});
+        this.navCtrl.push(Comment, {bill: bill, link: '/reps/'+this.person.$key+"/bills/"}).then(res=>{
+            console.log('success',res)
+          })
+      .catch((err:any)=>{
+        this.unknown();        
+      })
         
     }
     openFb(){

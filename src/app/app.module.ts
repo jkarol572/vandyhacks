@@ -12,6 +12,7 @@ import { PersonView } from '../pages/personview/personview';
 import { More } from '../pages/more/more';
 import { Comment } from '../pages/comment/comment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {HttpModule} from '@angular/http';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDAV3P8Gwava4iIdlsJQjar41TnXNxoYtM",
@@ -34,7 +35,8 @@ export const firebaseConfig = {
   imports: [
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    ChartsModule
+    ChartsModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
