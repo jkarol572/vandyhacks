@@ -17,15 +17,26 @@ import * as firebase from 'firebase';
 export class Home {
     reps: any;
     myInput: string;
+    state: any;
+    user: any;
+    filterState: any;
     constructor(public loadingCtrl: LoadingController, private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire) {
        
     }
     ngOnInit(){
+        this.filterState="all";
+
+        this.user = this.af.database.object('/users/' + this._auth.getEmailName());
+        
+         let userSubscription = this.user.subscribe((user_data)=>{
+             this.state=user_data.state;
+         })
+
         this.myInput="";
         //Grab all of the reps
         let loading = this.loadingCtrl.create({
             spinner: 'ios',
-            content: 'Loading people'
+            content: 'Loading politicians'
           });
           
         
@@ -104,10 +115,10 @@ export class Home {
 
         var groupSubscription = repsref.subscribe((data) => {
             this.reps=this.reps.concat(data);
-            
         });
 
     }
+
     }
 
     genimg(link){
@@ -121,6 +132,98 @@ export class Home {
     }
     onCancel(){
 
+    }
+
+
+    filter_state(ev){
+         if(this.filterState!="all"){
+            ev.target.value = '';                   
+            let loading = this.loadingCtrl.create({
+                spinner: 'ios',
+                content: 'Loading politicians'
+              });
+              
+            
+              loading.present();
+            var repsref = this.af.database.list('/reps/', {
+                query: {
+                     orderByChild: 'state',
+                     equalTo: this.state
+                    //  limitToFirst: 10
+                }});
+    
+    
+            var groupSubscription = repsref.subscribe((data) => {
+                this.reps=data;
+                loading.dismiss()
+                
+            });
+        }
+    }
+
+    abbrState(){
+        
+        var states = [
+            ['Arizona', 'AZ'],
+            ['Alabama', 'AL'],
+            ['Alaska', 'AK'],
+            ['Arizona', 'AZ'],
+            ['Arkansas', 'AR'],
+            ['California', 'CA'],
+            ['Colorado', 'CO'],
+            ['Connecticut', 'CT'],
+            ['Delaware', 'DE'],
+            ['Florida', 'FL'],
+            ['Georgia', 'GA'],
+            ['Hawaii', 'HI'],
+            ['Idaho', 'ID'],
+            ['Illinois', 'IL'],
+            ['Indiana', 'IN'],
+            ['Iowa', 'IA'],
+            ['Kansas', 'KS'],
+            ['Kentucky', 'KY'],
+            ['Kentucky', 'KY'],
+            ['Louisiana', 'LA'],
+            ['Maine', 'ME'],
+            ['Maryland', 'MD'],
+            ['Massachusetts', 'MA'],
+            ['Michigan', 'MI'],
+            ['Minnesota', 'MN'],
+            ['Mississippi', 'MS'],
+            ['Missouri', 'MO'],
+            ['Montana', 'MT'],
+            ['Nebraska', 'NE'],
+            ['Nevada', 'NV'],
+            ['New Hampshire', 'NH'],
+            ['New Jersey', 'NJ'],
+            ['New Mexico', 'NM'],
+            ['New York', 'NY'],
+            ['North Carolina', 'NC'],
+            ['North Dakota', 'ND'],
+            ['Ohio', 'OH'],
+            ['Oklahoma', 'OK'],
+            ['Oregon', 'OR'],
+            ['Pennsylvania', 'PA'],
+            ['Rhode Island', 'RI'],
+            ['South Carolina', 'SC'],
+            ['South Dakota', 'SD'],
+            ['Tennessee', 'TN'],
+            ['Texas', 'TX'],
+            ['Utah', 'UT'],
+            ['Vermont', 'VT'],
+            ['Virginia', 'VA'],
+            ['Washington', 'WA'],
+            ['West Virginia', 'WV'],
+            ['Wisconsin', 'WI'],
+            ['Wyoming', 'WY'],
+        ];
+    
+            for(let i = 0; i < states.length; i++){
+                if(states[i][1] == this.state){
+                    return(states[i][0]);
+                }
+            }    
+        
     }
 
 }

@@ -3,7 +3,7 @@
             <button ion-button menuToggle>
                 <ion-icon name="menu"></ion-icon>
             </button>
-            <ion-title>More</ion-title>
+            <ion-title>Comments</ion-title>
             <ion-buttons end>
     
             </ion-buttons>
@@ -19,7 +19,7 @@
                   </div> -->
 
 
-
+<h1 text-center>Comments</h1>
                   <ion-list>
                         <ion-item *ngFor="let comment of listOfComments">
                           <h2>{{username}} on {{comment.date}} at {{comment.time}}</h2>
@@ -27,11 +27,13 @@
                         </ion-item>
                       </ion-list>
 
-                      <ion-item>
-                            <ion-label color="primary" stacked>Comment</ion-label>
-                            <ion-input [(ngModel)]="text"type="email" placeholder="Your opinion..."></ion-input>
-                            <ion-icon item-right name="ios-send" (click)="postComment()"></ion-icon>                            
-                        </ion-item>
-
-
+                
     </ion-content>
+          
+    <ion-footer>
+            <ion-item style="border: 4px solid rgb(114, 195, 253)">
+                    <ion-label color="primary" stacked>Comment</ion-label>
+                    <ion-input [(ngModel)]="text"type="email" placeholder="Your opinion..."></ion-input>
+                    <ion-icon item-right name="ios-send" (click)="postComment()"></ion-icon>                            
+                </ion-item>
+        </ion-footer>

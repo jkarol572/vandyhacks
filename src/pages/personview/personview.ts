@@ -6,7 +6,7 @@ import { Login } from '../login/login';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { More } from '../more/more';
 import { Comment } from '../comment/comment';
-
+import { party } from '../../app/party'
 import * as firebase from 'firebase';
 
 
@@ -84,7 +84,6 @@ export class PersonView {
               text: 'Ok',
               role: 'cancel',
               handler: () => {
-                  this.navCtrl.pop();
  
               }
             }
@@ -100,6 +99,17 @@ export class PersonView {
     pushComment(bill){
         this.navCtrl.push(Comment, {bill: bill, link: '/reps/'+this.person.$key+"/bills"});
         
+    }
+    openFb(){
+        window.open("https://facebook.com/"+this.person.facebook_account, '_system', 'location=yes'); return false;
+    }
+     openTwitter(){
+        window.open("https://twitter.com/"+this.person.twitter_account, '_system', 'location=yes'); return false;
+    }
+
+
+    getParty(){
+        return party[this.person.party];
     }
 
 

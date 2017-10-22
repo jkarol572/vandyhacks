@@ -20,20 +20,20 @@
             </ion-item>
         <ion-item>
             <h2>{{person.first_name}} {{person.last_name}}</h2>
-            <p>Democratic Party (FIX THIS)</p>
+            <p>{{getParty()}}</p>
         </ion-item>
 
 
         <ion-row >
             <ion-col>
-                <button ion-button clear large>
+                <button (click)="openFb()" ion-button clear large>
                     <ion-icon name="logo-facebook"></ion-icon>
                     <div>&nbsp; Facebook</div>
 
                 </button>
             </ion-col>
             <ion-col>
-                <button ion-button clear large>
+                <button (click)="openTwitter()" ion-button clear large>
                     <ion-icon name="logo-twitter"></ion-icon>
                     <div>&nbsp;Twitter</div>
                 </button>
@@ -46,9 +46,9 @@
     <ion-list>
 
         <div *ngFor="let bill of bills">
-        <ion-item-sliding (click)="pushMore(bill)">
+        <ion-item-sliding >
 
-            <ion-item>
+            <ion-item (click)="pushMore(bill)">
                 <h2 text-wrap>{{bill.short_title}}</h2>
                 <p>Up: {{bill.vote_up}} Down: {{bill.vote_down}}</p>
             </ion-item>
@@ -73,4 +73,9 @@
         </ion-item-sliding>
     </div>
     </ion-list>
+    <br>
+    <br>
+    <canvas style="width:100%; height: 200px;"></canvas>
+    <br>
+    <br>
 </ion-content>
