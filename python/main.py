@@ -8,8 +8,6 @@ config = {  "apiKey": "AIzaSyAEldpNbEqFav1YEvA5VEKRcCXqg4-FGOo",  "authDomain": 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
-apis = ["787f0096a7a9ec30f0235facf20d4fc2", "ae71f475536bcf48f3005651c176bf85", "1002b91d3dae2119bdc05a013f8014e0", "5f4abd2e599348ef96f9630b65c6ce4f"]
-api_index = 0
 
 def fillUpMembers():
     headers = {"X-API-Key": "YiPPPsDRHE4xNOJuPuuGDO9wJBFEYzEQOKqC12Rw"}
@@ -67,6 +65,8 @@ def fixUpCRPID():
 
 
 def fillUpDonations():
+    apis = ["787f0096a7a9ec30f0235facf20d4fc2", "ae71f475536bcf48f3005651c176bf85", "1002b91d3dae2119bdc05a013f8014e0", "5f4abd2e599348ef96f9630b65c6ce4f"]
+    api_index = 0
     no_donations = []
     inventory = db.child("reps").get()
     for x in inventory.each():
@@ -100,14 +100,8 @@ def readWar():
 	war = open("war.txt", "r")
 	lines = war.readlines()
 	inventory = db.child("reps").get()
-	for_bool = True
 	for x in inventory.each():
-		print str(x.key())
-		if db.child("reps").child(x.key()).child("bills") is None:
-			print "We caught this one. Fuck em\n\n\n\n\n\n\n\n\n" + str(x.key())
-			db.child("reps").child(x.key()).remove()
-			for_bool = False
-		if for_bool:
+		if not isinstance(db.child("reps").child(x.key()).child("bills").get().each(), type(None)):
 			for y in db.child("reps").child(x.key()).child("bills").get().each():
 				#print db.child("reps").child(x).child("bills").child(y).val()
 				comments = []
@@ -133,12 +127,19 @@ def readWar():
 					comments.append(new_comment)
 				json_comments = json.dumps(comments)
 				db.child("reps").child(x.key()).child("bills").child(y.key()).child("comments").push(json.loads(json_comments))
-		for_bool = True
-		print "Comments for " + str(x.key())
+			print "Comments for " + str(x.key())
+		else:
+			db.child("reps").child(x.key()).remove()
 
 
-
-
+def deleteEmpty():
+	inventory = db.child("reps").get()
+	for x in inventory.each():
+		if not isinstance(db.child("reps").child(x.key()).child("bills").get().each(), type(None)):
+			for y in db.child("reps").child(x.key()).child("bills").get().each():
+				continue
+		else:
+			db.child("reps").child(x.key()).remove()
 #fillUpMembers()
 #print "Filled up the members!"
 
@@ -152,6 +153,8 @@ def readWar():
 #print "Filled up the donations!"
 
 #4a) fixUpDonations() this was only used to fix up the last problem, this is now fixed.
+
+#deleteEmpty()
 
 readWar()
 
