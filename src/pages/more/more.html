@@ -32,13 +32,13 @@
                 <h3>{{bill.committees}}</h3>
               </ion-item>
               <ion-item text-wrap (click)="toggleGroup(i)" [ngClass]="{active: isGroupShown(i)}" *ngIf="bill.summary">
-                    <h2><strong>Summary</strong><ion-icon color="success" item-right [name]="isGroupShown(i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon></h2>
+                    <h2><strong>Summary</strong>&nbsp;&nbsp;<ion-icon color="success" item-right [name]="isGroupShown(i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon></h2>
                     <h3 *ngIf="isGroupShown(i)">{{bill.summary}}</h3>
                   </ion-item>
                   <ion-item>
-                        <h2><strong>Party Support</strong></h2>
+                        <h2 *ngIf="either"><strong>Party Support</strong></h2>
                         
-                        <canvas baseChart
+                        <canvas *ngIf="either" baseChart
                         [data]="doughnutChartData"
                         [labels]="doughnutChartLabels"
                         [chartType]="doughnutChartType"

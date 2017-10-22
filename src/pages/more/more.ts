@@ -19,6 +19,7 @@ export class More {
     public doughnutChartLabels:string[] = ['Democrat', 'Republican'];
     public doughnutChartData:number[] = [];
     public doughnutChartType:string = 'doughnut';
+    either: boolean;
     
 
     constructor(private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire, private navParams: NavParams,) {
@@ -26,9 +27,9 @@ export class More {
     }
     ngOnInit(){
         this.bill = this.navParams.get('bill');
-        console.log(this.bill.cosponsors_by_party['D'])
-        console.log(this.bill.cosponsors_by_party['R'])
-
+        this.either=true;
+       
+if(this.bill.cosponsors_by_party){
         if(this.bill.cosponsors_by_party['D']){
             this.doughnutChartData[0] = this.bill.cosponsors_by_party['D'];
         }else{
@@ -39,6 +40,9 @@ export class More {
         }else{
             this.doughnutChartData[1] = 0;           
         }
+    }else{
+        this.either=false;
+    }
         
 
     }

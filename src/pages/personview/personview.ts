@@ -8,6 +8,7 @@ import { More } from '../more/more';
 import { Comment } from '../comment/comment';
 import { party } from '../../app/party'
 import * as firebase from 'firebase';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 
 @Component({
@@ -19,14 +20,40 @@ export class PersonView {
     bills: any;
     state: string;
     user: any;
-    constructor(private alertCtrl: AlertController, private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire, private navParams: NavParams,) {
+    public doughnutChartLabels:string[] = ["Loading"];
+    public doughnutChartData:number[] = [.00001];
+    public doughnutChartType:string = 'doughnut';
+    public lineChartOptions: any;
+    public barChartLegend: any;
+    totalcontrib: number;
+
+    constructor(public chart: ChartsModule, private alertCtrl: AlertController, private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire, private navParams: NavParams,) {
        
     }
     ngOnInit(){
+        this.doughnutChartLabels= this.navParams.get('labels');
+        this.doughnutChartData= this.navParams.get('data');
         this.person = this.navParams.get('person');
         console.log(this.person);
         this.user = this.af.database.object('/users/' + this._auth.getEmailName());
-        
+
+        this.lineChartOptions = {
+            display: false,
+            color: [
+                'red',    // color for data at index 0
+                'blue',   // color for data at index 1
+                'green',  // color for data at index 2
+                'black',  // color for data at index 3
+                //...
+            ],
+            responsive: true
+          };
+          this.barChartLegend=false;
+          let sum = 0;
+          for(let i = 0 ; i < this.doughnutChartData.length ; i++){
+            sum = Number(sum) + Number(this.doughnutChartData[i]);
+          }
+          this.totalcontrib = sum;
 
         var billtemp = this.af.database.list('/reps/'+this.person.$key+"/bills", {
             query: {
@@ -35,7 +62,6 @@ export class PersonView {
 
 
         var groupSubscription = billtemp.subscribe((data) => {
-            console.log(data);
             this.bills = data;
             
         });
@@ -48,6 +74,9 @@ export class PersonView {
             //     this.year=user_data.year;
     
              })
+
+     
+
     
         
     }
@@ -92,12 +121,83 @@ export class PersonView {
         alert.present();
       }
 
+      unknown() {
+        let alert = this.alertCtrl.create({
+          title: 'Error',
+          message: 'An unkown error has occured',
+          buttons: [
+            {
+              text: 'Ok',
+              role: 'cancel',
+              handler: () => {
+ 
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+
     pushMore(bill){
-        this.navCtrl.push(More, {bill: bill, link: '/reps/'+this.person.$key+"/bills"});
+        this.navCtrl.push(More, {bill: bill, link: '/reps/'+this.person.$key+"/bills/"}).then(res=>{
+            console.log('success',res)
+          })
+      .catch((err:any)=>{
+        this.unknown();
+      })
         
     }
     pushComment(bill){
-        this.navCtrl.push(Comment, {bill: bill, link: '/reps/'+this.person.$key+"/bills"});
+        //Push proper array
+        let temp = this.af.database.list('/reps/'+this.person.$key+"/bills/" + bill.$key + "/comments");
+        let temparray = [];
+        console.log(this.person.$key + "  " +  bill.$key)
+        let returned = [0,0,0];
+        
+        let getComment = temp.subscribe((data)=>{
+           temparray=data;
+           console.log(data)
+         
+           if(this.navCtrl.getActive().name=="PersonView"){
+         for(let i = 0 ; i < temparray.length ; i++){
+             if(temparray[i].sentiment=="neg"){
+                returned[0]=returned[0]+1;
+             }else if(temparray[i].sentiment=="neutral"){
+                returned[1]=returned[1]+1;                
+             }else if(temparray[i].sentiment=="pos"){
+                returned[2]=returned[2]+1;                
+             } //pos neg
+         }
+        }else{
+            returned[0]=0;
+            returned[1]=0;
+            returned[2]=0;
+
+            for(let i = 0 ; i < temparray.length ; i++){
+                if(temparray[i].sentiment=="neg"){
+                   returned[0]=returned[0]+1;
+                }else if(temparray[i].sentiment=="neutral"){
+                   returned[1]=returned[1]+1;                
+                }else if(temparray[i].sentiment=="pos"){
+                   returned[2]=returned[2]+1;                
+                } //pos neg
+            }
+
+        }
+        
+
+         console.log("RETURN TO PIEEE")
+         console.log(returned)
+
+         if(this.navCtrl.getActive().name=="PersonView"){
+        this.navCtrl.push(Comment, {bill: bill, link: '/reps/'+this.person.$key+"/bills/", returned: returned}).then(res=>{
+            console.log('success',res)
+          })
+      .catch((err:any)=>{
+        this.unknown();        
+      })
+    }
+    })
         
     }
     openFb(){
@@ -111,6 +211,15 @@ export class PersonView {
     getParty(){
         return party[this.person.party];
     }
+
+     chartClicked(e:any):void {
+        console.log(e);
+      }
+     
+    chartHovered(e:any):void {
+        console.log(e);
+      }
+
 
 
 }

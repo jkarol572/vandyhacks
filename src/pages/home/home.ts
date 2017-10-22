@@ -43,8 +43,7 @@ export class Home {
           loading.present();
         var repsref = this.af.database.list('/reps/', {
             query: {
-                 orderByChild: 'first_name',
-                //  limitToFirst: 10
+                 orderByChild: 'first_name'
             }});
 
 
@@ -128,7 +127,24 @@ export class Home {
     }
 
     openModal(person){
-        this.navCtrl.push(PersonView, {person: person});
+        let labels=[];
+        let data=[]
+        console.log(person);
+        let contrib =this.af.database.list('/reps/'+person.$key+"/contrib");
+        
+                let contribSub = contrib.subscribe((datalist)=>{
+                    console.log("contribbbb")
+                    
+                    console.log(data)
+                    for(let i = 0 ; i < datalist.length ; i++){
+                        labels.push(datalist[i].industry_name);
+                        data.push(datalist[i].total);        
+                    }
+             
+                    this.navCtrl.push(PersonView, {person: person, labels: labels, data: data});
+                    
+                })
+
     }
     onCancel(){
 
