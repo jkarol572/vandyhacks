@@ -61,6 +61,7 @@ export class Comment {
 
         let comment = new Comments(this.username, this._auth.getEmailName(), this.text,displayDate, displayTime);
         this.link.push(comment);
+        this.text="";
 
 
 

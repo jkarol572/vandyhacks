@@ -8,6 +8,7 @@ import { More } from '../more/more';
 import { Comment } from '../comment/comment';
 import { party } from '../../app/party'
 import * as firebase from 'firebase';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 
 @Component({
@@ -19,14 +20,40 @@ export class PersonView {
     bills: any;
     state: string;
     user: any;
-    constructor(private alertCtrl: AlertController, private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire, private navParams: NavParams,) {
+    public doughnutChartLabels:string[] = ["Loading"];
+    public doughnutChartData:number[] = [.00001];
+    public doughnutChartType:string = 'doughnut';
+    public lineChartOptions: any;
+    public barChartLegend: any;
+    totalcontrib: number;
+
+    constructor(public chart: ChartsModule, private alertCtrl: AlertController, private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire, private navParams: NavParams,) {
        
     }
     ngOnInit(){
+        this.doughnutChartLabels= this.navParams.get('labels');
+        this.doughnutChartData= this.navParams.get('data');
         this.person = this.navParams.get('person');
         console.log(this.person);
         this.user = this.af.database.object('/users/' + this._auth.getEmailName());
-        
+
+        this.lineChartOptions = {
+            display: false,
+            color: [
+                'red',    // color for data at index 0
+                'blue',   // color for data at index 1
+                'green',  // color for data at index 2
+                'black',  // color for data at index 3
+                //...
+            ],
+            responsive: true
+          };
+          this.barChartLegend=false;
+          let sum = 0;
+          for(let i = 0 ; i < this.doughnutChartData.length ; i++){
+            sum = Number(sum) + Number(this.doughnutChartData[i]);
+          }
+          this.totalcontrib = sum;
 
         var billtemp = this.af.database.list('/reps/'+this.person.$key+"/bills", {
             query: {
@@ -35,7 +62,6 @@ export class PersonView {
 
 
         var groupSubscription = billtemp.subscribe((data) => {
-            console.log(data);
             this.bills = data;
             
         });
@@ -48,6 +74,9 @@ export class PersonView {
             //     this.year=user_data.year;
     
              })
+
+     
+
     
         
     }
@@ -111,6 +140,15 @@ export class PersonView {
     getParty(){
         return party[this.person.party];
     }
+
+     chartClicked(e:any):void {
+        console.log(e);
+      }
+     
+    chartHovered(e:any):void {
+        console.log(e);
+      }
+
 
 
 }

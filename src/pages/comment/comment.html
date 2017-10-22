@@ -34,6 +34,6 @@
             <ion-item style="border: 4px solid rgb(114, 195, 253)">
                     <ion-label color="primary" stacked>Comment</ion-label>
                     <ion-input [(ngModel)]="text"type="email" placeholder="Your opinion..."></ion-input>
-                    <ion-icon item-right name="ios-send" (click)="postComment()"></ion-icon>                            
+                    <button ion-button item-right><ion-icon  name="ios-send" (click)="postComment()"></ion-icon></button>                            
                 </ion-item>
         </ion-footer>
