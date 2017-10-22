@@ -21,10 +21,29 @@
 
 <h1 text-center>Comments</h1>
                   <ion-list>
-                        <ion-item *ngFor="let comment of listOfComments">
-                          <h2>{{username}} on {{comment.date}} at {{comment.time}}</h2>
-                          <p text-wrap>{{comment.comment}}</p>
+                      <div *ngFor="let comment of listOfComments">
+                        <ion-item >
+                                <p style="font-size: 9px"text-wrap><strong>{{username}}</strong> at {{comment.time}}</p>                                
+                          <h2>{{comment.comment}}</h2>
+                          <button clear ion-button item-right><ion-icon  name="ios-add" (click)="makeChild(comment)"></ion-icon></button>                                                                                
+                          <button clear ion-button item-right><ion-icon  name="md-arrow-dropright" (click)="openChild()"></ion-icon></button>                                                      
                         </ion-item>
+
+                        <div *ngIf="comment.childarray">
+                        <ion-item style="padding-left: 50px;" *ngFor="let child of comment.childarray">
+                                <p style="font-size: 9px" text-wrap><strong>{{username}}</strong> at {{child.time}}</p>                                
+                            <h2>{{child.comment}}</h2>
+                              </ion-item>
+                            </div>
+
+                        <ion-item *ngIf="comment.creating" style="padding-left: 50px;">
+                                <ion-label color="primary" stacked>Comment</ion-label>
+                                <ion-input [(ngModel)]="childtext"type="email" placeholder="Your opinion..."></ion-input>
+                                <button clear ion-button item-right><ion-icon  name="ios-close" (click)="closeNew(comment)"></ion-icon></button>                                                            
+                                <button clear ion-button item-right><ion-icon  name="ios-send" (click)="postChild(comment)"></ion-icon></button>                            
+                            </ion-item>
+
+                        </div>
                       </ion-list>
 
                 
