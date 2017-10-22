@@ -45,7 +45,7 @@
                               </ion-item>
                             </div>
 
-                        <ion-item *ngIf="comment.creating" style="padding-left: 50px;">
+                        <ion-item *ngIf="comment.creating=='true'" style="padding-left: 50px;">
                                 <ion-label color="primary" stacked>Comment</ion-label>
                                 <ion-input [(ngModel)]="childtext"type="email" placeholder="Your opinion..."></ion-input>
                                 <button clear ion-button item-right><ion-icon  name="ios-close" (click)="closeNew(comment)"></ion-icon></button>                                                            

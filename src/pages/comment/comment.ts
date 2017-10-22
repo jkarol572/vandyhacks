@@ -73,10 +73,10 @@ let tempsub = this.link.subscribe((dataa)=>{
     }
 
     makeChild(comment){
-        comment.creating=true;
+        comment.creating="true";
     }
     closeNew(comment){
-        comment.creating=false;
+        comment.creating="false";
         this.childtext="";
         
     }
