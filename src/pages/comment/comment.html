@@ -32,15 +32,15 @@
                   <ion-list>
                       <div *ngFor="let comment of listOfComments">
                         <ion-item >
-                                <p style="font-size: 9px"text-wrap><strong>{{username}}</strong> at {{comment.time}}</p>                                
-                          <h2 text-wrap>{{comment.comment}}</h2>
+                                <p style="font-size: 9px"text-wrap><strong>{{comment.username}}</strong> at {{comment.time}}</p>                                
+                          <h2 text-wrap>{{comment.text}}</h2>
                           <button clear ion-button item-right><ion-icon  name="ios-add" (click)="makeChild(comment)"></ion-icon></button>                                                                                
                           <!-- <button clear ion-button item-right><ion-icon  name="md-arrow-dropright" (click)="openChild()"></ion-icon></button>                                                       -->
                         </ion-item>
 
                         <div *ngIf="comment.childarray">
                         <ion-item style="padding-left: 50px;" *ngFor="let child of comment.childarray">
-                                <p style="font-size: 9px" text-wrap><strong>{{username}}</strong> at {{child.time}}</p>                                
+                                <p style="font-size: 9px" text-wrap><strong>{{comment.username}}</strong> at {{child.time}}</p>                                
                             <h2 text-wrap>{{child.comment}}</h2>
                               </ion-item>
                             </div>

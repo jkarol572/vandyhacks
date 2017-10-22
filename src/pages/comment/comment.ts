@@ -25,6 +25,7 @@ export class Comment {
     listOfComments: any;
     dtstring: any;
     childtext: any;
+    incompletelink: any;
     public doughnutChartLabels:string[] = ['Negative', 'Neutral', 'Positive'];
     public doughnutChartData:number[] = [];
     public doughnutChartType:string = 'doughnut';
@@ -34,7 +35,9 @@ export class Comment {
     }
     ngOnInit(){
         this.bill = this.navParams.get('bill');
-        this.link = this.af.database.list(this.navParams.get('link')+ this.bill.$key + "/comments/");
+        //this.link = this.af.database.list(this.navParams.get('link')+ this.bill.$key + "/comments/");
+        this.incompletelink = this.af.database.list(this.navParams.get('link')+ this.bill.$key + "/comments/");
+        
         this.doughnutChartData = this.navParams.get('returned');
         
         this.user = this.af.database.object('/users/' + this._auth.getEmailName());
@@ -48,8 +51,13 @@ export class Comment {
 
          })
 
-         let getComment = this.link.subscribe((data)=>{
-            this.listOfComments=data;
+         let getComment = this.incompletelink.subscribe((data)=>{
+this.link = this.af.database.list(this.navParams.get('link')+ this.bill.$key + "/comments/"+data[0].$key);
+let tempsub = this.link.subscribe((dataa)=>{
+    console.log("final comments")
+    console.log(dataa)
+    this.listOfComments=dataa;
+})
          })
 
          console.log(new Date());
@@ -77,7 +85,7 @@ export class Comment {
         console.log(comment)
         var displayDate = new Date().toLocaleDateString();
         var displayTime = new Date().toLocaleTimeString();
-        let newchild = new Child(this.username, this._auth.getEmailName(), this.childtext, displayDate, displayTime)
+        let newchild = new Child(this.username, this._auth.getEmailName(), this.childtext, displayDate+" "+displayTime)
         if(comment.childarray){
             comment.childarray.push(newchild);
 
@@ -115,7 +123,7 @@ export class Comment {
               var displayTime = new Date().toLocaleTimeString();
               
       
-              let comment = new Comments(this.username, this._auth.getEmailName(), this.text,displayDate, displayTime, false, data['_body'], null);
+              let comment = new Comments(this.username, this._auth.getEmailName(), this.text,displayDate +" "+displayTime, false, data['_body'], null);
               this.link.push(comment);
               this.text="";
 

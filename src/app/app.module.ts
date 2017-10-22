@@ -15,11 +15,11 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {HttpModule} from '@angular/http';
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyDAV3P8Gwava4iIdlsJQjar41TnXNxoYtM",
-    authDomain: "project-953089341135.firebaseapp.com",
-    databaseURL: "https://congernize.firebaseio.com/",
-    storageBucket: "project-953089341135.appspot.com",
-    messagingSenderId: "953089341135"
+    apiKey: "AIzaSyAEldpNbEqFav1YEvA5VEKRcCXqg4-FGOo",
+    authDomain: "project-798833822419.firebaseapp.com",
+    databaseURL: "https://trycatch-c3eef.firebaseio.com/",
+    storageBucket: "project-798833822419.appspot.com",
+    messagingSenderId: "798833822419"
 };
 
 @NgModule({

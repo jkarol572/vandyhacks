@@ -5,17 +5,15 @@ export class Child {
     username: string;
     emailname: string;
     comment: string;
-    date: any;
-    time: any;
+    timestamp: any;
     public af: AngularFire;
 
     constructor(username: string, emailname: string,
-        comment: string, date: any, time: any) {
+        comment: string, timestamp: any) {
         this.username = username;
         this.emailname = emailname;
         this.comment = comment;
-        this.date = date;
-        this.time = time;
+        this.timestamp = timestamp;
         
     }
 }

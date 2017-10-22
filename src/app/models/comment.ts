@@ -4,21 +4,19 @@ import {Child} from '../models/child'
 export class Comments {
     username: string;
     emailname: string;
-    comment: string;
-    date: any;
-    time: any;
+    text: string;
+    timestamp: any;
     childarray?: any;
     creating: boolean;
     sentiment: string;
     public af: AngularFire;
 
     constructor(username: string, emailname: string,
-        comment: string, date: any, time: any, creating: boolean, sentiment: string, childarray?: any) {
+        text: string, timestamp: any, creating: boolean, sentiment: string, childarray?: any) {
         this.username = username;
         this.emailname = emailname;
-        this.comment = comment;
-        this.date = date;
-        this.time = time;
+        this.text = text;
+        this.timestamp = timestamp;
         this.childarray = childarray;
         this.creating=creating;
         this.sentiment=sentiment
