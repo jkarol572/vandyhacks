@@ -9,10 +9,11 @@ export class Comments {
     time: any;
     childarray?: any;
     creating: boolean;
+    sentiment: string;
     public af: AngularFire;
 
     constructor(username: string, emailname: string,
-        comment: string, date: any, time: any, creating: boolean, childarray?: any) {
+        comment: string, date: any, time: any, creating: boolean, sentiment: string, childarray?: any) {
         this.username = username;
         this.emailname = emailname;
         this.comment = comment;
@@ -20,6 +21,6 @@ export class Comments {
         this.time = time;
         this.childarray = childarray;
         this.creating=creating;
-        
+        this.sentiment=sentiment
     }
 }

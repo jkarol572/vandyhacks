@@ -25,12 +25,17 @@ export class Comment {
     listOfComments: any;
     dtstring: any;
     childtext: any;
+    public doughnutChartLabels:string[] = ['Negative', 'Neutral', 'Positive'];
+    public doughnutChartData:number[] = [];
+    public doughnutChartType:string = 'doughnut';
+
     constructor(public http: Http, private menu: MenuController, public navCtrl: NavController, private _auth: AuthService, public af: AngularFire, private navParams: NavParams,) {
        
     }
     ngOnInit(){
         this.bill = this.navParams.get('bill');
         this.link = this.af.database.list(this.navParams.get('link')+ this.bill.$key + "/comments/");
+        this.doughnutChartData = this.navParams.get('returned');
         
         this.user = this.af.database.object('/users/' + this._auth.getEmailName());
         
@@ -53,25 +58,7 @@ export class Comment {
         
     }
 
-    postComment(){
-        //username
-        //emailname
-        //comment
-        //time stamp
-        console.log(this.authentification());
-        
-        var displayDate = new Date().toLocaleDateString();
-        var displayTime = new Date().toLocaleTimeString();
-        
-
-        let comment = new Comments(this.username, this._auth.getEmailName(), this.text,displayDate, displayTime, false, null);
-        this.link.push(comment);
-        this.text="";
-
-
-
-
-    }
+ 
 
     openChild(){
 
@@ -105,30 +92,37 @@ export class Comment {
 
     }
 
-    authentification() {
-        
+    public chartClicked(e:any):void {
+        console.log(e);
+      }
+     
+      public chartHovered(e:any):void {
+        console.log(e);
+      }
+
+
+      postComment() {
     
             let params = new URLSearchParams()
-            params.append('text','fuck get requests stupid shit fuck btich shit');
-
-            let headers = new Headers();
-            headers.append("Accept", 'application/json');
-            headers.append('Content-Type', 'application/json' );
+            params.append('text',this.text);
             let options = new RequestOptions({ search: params });
-        
-            let postParams = {
-              
-                text:'yooooooo'
-            
-            }
-            
 
-            this.http.get("http://67.205.128.198:9000/analysis?text=yoooo", options)
+            this.http.get("http://67.205.128.198:9000/analysis", options)
             .subscribe(data => {
               console.log(data['_body'])
+
+              var displayDate = new Date().toLocaleDateString();
+              var displayTime = new Date().toLocaleTimeString();
+              
+      
+              let comment = new Comments(this.username, this._auth.getEmailName(), this.text,displayDate, displayTime, false, data['_body'], null);
+              this.link.push(comment);
+              this.text="";
+
             }, error => {
                 console.log(JSON.stringify(error.json()));
             });
+            
 
         }
 

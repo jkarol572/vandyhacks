@@ -148,12 +148,56 @@ export class PersonView {
         
     }
     pushComment(bill){
-        this.navCtrl.push(Comment, {bill: bill, link: '/reps/'+this.person.$key+"/bills/"}).then(res=>{
+        //Push proper array
+        let temp = this.af.database.list('/reps/'+this.person.$key+"/bills/" + bill.$key + "/comments");
+        let temparray = [];
+        console.log(this.person.$key + "  " +  bill.$key)
+        let returned = [0,0,0];
+        
+        let getComment = temp.subscribe((data)=>{
+           temparray=data;
+           console.log(data)
+         
+           if(this.navCtrl.getActive().name=="PersonView"){
+         for(let i = 0 ; i < temparray.length ; i++){
+             if(temparray[i].sentiment=="neg"){
+                returned[0]=returned[0]+1;
+             }else if(temparray[i].sentiment=="neutral"){
+                returned[1]=returned[1]+1;                
+             }else if(temparray[i].sentiment=="pos"){
+                returned[2]=returned[2]+1;                
+             } //pos neg
+         }
+        }else{
+            returned[0]=0;
+            returned[1]=0;
+            returned[2]=0;
+
+            for(let i = 0 ; i < temparray.length ; i++){
+                if(temparray[i].sentiment=="neg"){
+                   returned[0]=returned[0]+1;
+                }else if(temparray[i].sentiment=="neutral"){
+                   returned[1]=returned[1]+1;                
+                }else if(temparray[i].sentiment=="pos"){
+                   returned[2]=returned[2]+1;                
+                } //pos neg
+            }
+
+        }
+        
+
+         console.log("RETURN TO PIEEE")
+         console.log(returned)
+
+         if(this.navCtrl.getActive().name=="PersonView"){
+        this.navCtrl.push(Comment, {bill: bill, link: '/reps/'+this.person.$key+"/bills/", returned: returned}).then(res=>{
             console.log('success',res)
           })
       .catch((err:any)=>{
         this.unknown();        
       })
+    }
+    })
         
     }
     openFb(){

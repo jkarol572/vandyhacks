@@ -17,6 +17,15 @@
                   <!-- <div *ngFor="let comment of listOfComments">
                     {{comment.comment}}
                   </div> -->
+                  <div *ngIf="!(doughnutChartData[0]==0 && doughnutChartData[1]==0 && doughnutChartData[2]==0)">
+                  <h1 text-center>Sentiment</h1>
+                  <canvas baseChart
+                  [data]="doughnutChartData"
+                  [labels]="doughnutChartLabels"
+                  [chartType]="doughnutChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+                </div>
 
 
 <h1 text-center>Comments</h1>
@@ -24,15 +33,15 @@
                       <div *ngFor="let comment of listOfComments">
                         <ion-item >
                                 <p style="font-size: 9px"text-wrap><strong>{{username}}</strong> at {{comment.time}}</p>                                
-                          <h2>{{comment.comment}}</h2>
+                          <h2 text-wrap>{{comment.comment}}</h2>
                           <button clear ion-button item-right><ion-icon  name="ios-add" (click)="makeChild(comment)"></ion-icon></button>                                                                                
-                          <button clear ion-button item-right><ion-icon  name="md-arrow-dropright" (click)="openChild()"></ion-icon></button>                                                      
+                          <!-- <button clear ion-button item-right><ion-icon  name="md-arrow-dropright" (click)="openChild()"></ion-icon></button>                                                       -->
                         </ion-item>
 
                         <div *ngIf="comment.childarray">
                         <ion-item style="padding-left: 50px;" *ngFor="let child of comment.childarray">
                                 <p style="font-size: 9px" text-wrap><strong>{{username}}</strong> at {{child.time}}</p>                                
-                            <h2>{{child.comment}}</h2>
+                            <h2 text-wrap>{{child.comment}}</h2>
                               </ion-item>
                             </div>
 
